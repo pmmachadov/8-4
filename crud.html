@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>CRUD Example</h1>
+
+	<!-- Form for adding new data -->
+	<form>
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name"><br>
+		<label for="age">Age:</label>
+		<input type="number" id="age" name="age"><br>
+		<button type="button" onclick="addData()">Add Data</button>
+	</form>
+
+	<!-- Table for displaying data -->
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="table-body">
+			<!-- Data will be added here -->
+		</tbody>
+	</table>
+
+	<script>
+		// Array to store data
+		let data = [];
+
+		// Function to add new data to the array and update the table
+		function addData() {
+			// Get values from form
+			let name = document.getElementById("name").value;
+			let age = document.getElementById("age").value;
+
+			// Add new data to array
+			data.push({name: name, age: age});
+
+			// Update the table
+			updateTable();
+		}
+
+		// Function to delete data from the array and update the table
+		function deleteData(index) {
+			// Remove data from array
+			data.splice(index, 1);
+
+			// Update the table
+			updateTable();
+		}
+
+		// Function to update the table with the current data in the array
+		function updateTable() {
+			// Get the table body element
+			let tableBody = document.getElementById("table-body");
+
+			// Clear the table body
+			tableBody.innerHTML = "";
+
+			// Loop through the data and add it to the table
+			for (let i = 0; i < data.length; i++) {
+				let row = "<tr>";
+				row += "<td>" + data[i].name + "</td>";
+				row += "<td>" + data[i].age + "</td>";
+				row += "<td><button type='button' onclick='deleteData(" + i + ")'>Delete</button></td>";
+				row += "</tr>";
+				tableBody.innerHTML += row;
+			}
+		}
+	</script>
+</body>
+</html>
